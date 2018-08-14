@@ -1,0 +1,36 @@
+{
+  "name": "apollo-example-dog-api",
+  "version": "1.0.0",
+  "description": "An example of using GraphQL (Apollo server) to wrap a REST API (Dog API)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon src/index.js",
+    "serve": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=10.8.0"
+  },
+  "keywords": [
+    "apollo",
+    "graphql",
+    "dogapi"
+  ],
+  "author": "Jahred Hope <jahredhope@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.0.0",
+    "graphql": "^0.13.2",
+    "node-fetch": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "nodemon": "^1.18.3",
+    "jest": "^23.5.0"
+  }
+}
