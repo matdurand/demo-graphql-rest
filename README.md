@@ -11,13 +11,13 @@ Ensure you have the latest [Node and npm](https://nodejs.org/en/).
 Install the required dependencies.
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 Start the development environment.
 
 ```bash
-$ npm start
+$ yarn start
 ```
 
 Open the playground in your browser [http://localhost:4000/](http://localhost:4000/)

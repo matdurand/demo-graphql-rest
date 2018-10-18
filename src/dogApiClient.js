@@ -16,10 +16,7 @@ function getBreed({ breed } = {}) {
   };
 }
 
-function getBreeds({ breed, limit = 3 } = {}) {
-  if (breed) {
-    return { name: breed };
-  }
+function getBreeds({ limit = 3 } = {}) {
   const url = `https://dog.ceo/api/breeds/list/all`;
   return fetch(url)
     .then(response => response.json())
