@@ -45,3 +45,13 @@ query breedList($breed: String!) {
   }
 }
 ```
+
+## TypeScript type generation from GraphQL types
+
+TypeScript types are generated automatically from GraphQL types.
+Found in **src/generated-schema-types.ts**
+To update this file with type changes run
+
+```bash
+$ yarn build:types
+```

@@ -5,8 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon src/index.js",
-    "serve": "node src/index.js"
+    "build": "npm run generate-types && npm run build:dist",
+    "build:dist": "tsc -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json",
+    "generate-types": "ts-node scripts/generateTypes.ts",
+    "serve": "node dist/index.js",
+    "start": "npm run start:generate-types & npm run start:api",
+    "start:generate-types": "nodemon --ignore src/generated-schema-types.ts --exec 'ts-node' scripts/generateTypes.ts",
+    "start:api": "nodemon --exec 'ts-node' src/index.ts"
   },
   "engines": {
     "node": ">=10.8.0"
@@ -19,18 +25,29 @@
   "author": "Jahred Hope <jahredhope@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.1.0",
-    "graphql": "^14.0.2",
-    "node-fetch": "^2.2.0"
+    "@types/graphql": "^14.0.5",
+    "@types/node-fetch": "^2.1.4",
+    "apollo-datasource-rest": "^0.2.2",
+    "apollo-server": "^2.3.3",
+    "chalk": "^2.4.2",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "graphql-schema-typescript": "^1.2.8",
+    "merge-graphql-schemas": "^1.5.8",
+    "node-fetch": "^2.3.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.3.1"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
+    "eslint": "^5.13.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.18.4",
-    "jest": "^23.6.0"
+    "jest": "^24.0.0",
+    "nodemon": "^1.18.9"
   }
 }
