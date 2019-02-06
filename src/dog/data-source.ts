@@ -3,9 +3,9 @@ import { RESTDataSource } from "apollo-datasource-rest";
 interface IBreed {
   name: string;
 }
-interface IDog {
+export interface IDog {
   imageUrl: string;
-  breedId: string;
+  breedName: string;
 }
 
 interface IDogsImageResponse {
@@ -25,28 +25,28 @@ export default class DogAPI extends RESTDataSource {
   }
 
   public async getDogsByBreed({
-    breedId,
+    breed,
     limit = 5
   }: {
-    breedId: string;
+    breed: string;
     limit: number;
   }): Promise<IDog[]> {
-    if (!breedId) {
+    if (!breed) {
       throw new Error("Unable to list dogs without a breed");
     }
-    const url = `breed/${breedId}/images`;
+    const url = `breed/${breed}/images`;
     return this.get(url)
       .then((data: IDogsImageResponse) => data.message)
       .then(
         (message: IDogsImageResponse["message"]): IDog[] =>
-          message.map((val: string) => ({ breedId, imageUrl: val }))
+          message.map((val: string) => ({ breedName: breed, imageUrl: val }))
       )
       .then((arr: IDog[]) => arr.slice(0, limit));
   }
 
-  public async getBreed({ breedId }: { breedId: string }): Promise<IBreed> {
+  public async getBreed({ breed }: { breed: string }): Promise<IBreed> {
     return {
-      name: breedId
+      name: breed
     };
   }
 

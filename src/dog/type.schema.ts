@@ -1,6 +1,5 @@
 export default `
   type Dog {
-    breedId: String!
     breed: Breed
     imageUrl: String!
   }

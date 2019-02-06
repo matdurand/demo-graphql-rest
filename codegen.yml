@@ -5,6 +5,15 @@ schema:
     # https://github.com/dotansimha/graphql-code-generator/blob/master/packages/graphql-codegen-cli/src/load.ts#L7
     loader: "../../../scripts/load-array-types.ts"
 documents: null
+config:
+  # mappers: A map between a resolver's parent and the type to use as the parent object
+  # Often useful when additional information is returned from a resolver that is not in
+  # the schema, for example foreign keys.
+  # Warning: Use mappers sparingly
+  # https://graphql-code-generator.com/docs/plugins/typescript-resolvers#mappers-overwrite-parents-and-resolved-values
+  mappers:
+    Dog: "./dog/data-source#IDog"
+  contextType: ./context#IContext
 generates:
   src/generated-schema-types.ts:
     plugins:

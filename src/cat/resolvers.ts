@@ -1,4 +1,3 @@
-import { IContext } from "../context";
 import { IResolvers } from "../generated-schema-types";
 
 export default {
@@ -12,4 +11,4 @@ export default {
       ];
     }
   }
-} as IResolvers<IContext>;
+} as IResolvers;
