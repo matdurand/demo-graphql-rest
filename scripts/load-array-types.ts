@@ -7,7 +7,7 @@ import path from "path";
  * Supports returning array of typeDefs
  */
 
-export default schemaString => {
+export default (schemaString: string) => {
   const typeDefs = require(path.join(process.cwd(), schemaString)).default;
   return makeExecutableSchema({ typeDefs });
 };

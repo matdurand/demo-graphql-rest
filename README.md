@@ -53,5 +53,7 @@ Found in **src/generated-schema-types.ts**
 To update this file with type changes run
 
 ```bash
-$ yarn build:types
+$ yarn generate-types
 ```
+
+**Note:** Typically generated types shouldn't be commited to repository. This file is being comitted to aid in references this repository.
