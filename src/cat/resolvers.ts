@@ -1,4 +1,5 @@
-import { GQLResolver } from "../generated-schema-types";
+import { IContext } from "../context";
+import { IResolvers } from "../generated-schema-types";
 
 export default {
   Query: {
@@ -11,4 +12,4 @@ export default {
       ];
     }
   }
-} as GQLResolver;
+} as IResolvers<IContext>;
