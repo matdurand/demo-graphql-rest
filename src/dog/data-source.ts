@@ -1,10 +1,10 @@
 import { RESTDataSource } from "apollo-datasource-rest";
+import { Dog } from "../generated-schema-types";
 
 interface IBreed {
   name: string;
 }
-export interface IDog {
-  imageUrl: string;
+export interface IDog extends Dog {
   breedName: string;
 }
 
