@@ -1,18 +1,7 @@
 const { ApolloServer } = require("apollo-server-express");
 const swaggerUi = require("swagger-ui-express");
 const express = require("express");
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { createHttpLink } from "apollo-link-http";
-import fetch from "node-fetch";
 
-import {
-  convertNodeHttpToRequest,
-  HttpQueryError,
-  runHttpQuery
-} from "apollo-server-core";
-
-import { resolve } from "path";
 import { OpenAPI, useSofa } from "sofa-api";
 import getDataSources from "./data-sources";
 import schema from "./schema";
@@ -21,18 +10,17 @@ import winston from "winston";
 winston.level = "debug";
 winston.add(new winston.transports.Console());
 
+import { InMemoryLRUCache } from "apollo-server-caching";
+const cache = new InMemoryLRUCache(); // In order to share cache with Apollo Server
+
 const app = express();
 const options = {
   dataSources: getDataSources,
-  schema
+  schema,
+  cache
 };
 const server = new ApolloServer(options);
 server.applyMiddleware({ app });
-
-const client = new ApolloClient({
-  link: createHttpLink({ uri: "http://localhost:4000/graphql", fetch }),
-  cache: new InMemoryCache()
-});
 
 const openApi = OpenAPI({
   schema,
@@ -44,12 +32,19 @@ const openApi = OpenAPI({
 app.use(
   useSofa({
     schema,
-    async execute(args) {
-      console.log("exec", args.source);
-      client.query({
-        query: args.source
-      });
-      return null;
+    context: ({ req }) => {
+      const dataSources = getDataSources() as any;
+      const context = { req, dataSources };
+      // This is what Apollo does internally
+      for (const dataSource of Object.values(dataSources) as any) {
+        if (dataSource.initialize) {
+          dataSource.initialize({
+            context,
+            cache
+          });
+        }
+      }
+      return context;
     },
     errorHandler(res: any, errors: ReadonlyArray<any>) {
       console.log(errors);
@@ -63,7 +58,6 @@ app.use(
     }
   })
 );
-console.log(openApi.get());
 app.use("/", swaggerUi.serve, swaggerUi.setup(openApi.get()));
 
 app.listen(4000, () => {
