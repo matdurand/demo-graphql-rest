@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Example API",
+    "version": "3.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Query": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "breed": {
+            "$ref": "#/components/schemas/Breed"
+          },
+          "breeds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Breed"
+            }
+          },
+          "dogs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dog"
+            }
+          }
+        }
+      },
+      "Breed": {
+        "type": "object",
+        "required": [
+          "name",
+          "howManyDogs"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "howManyDogs": {
+            "type": "string"
+          },
+          "dogs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dog"
+            }
+          }
+        }
+      },
+      "Dog": {
+        "type": "object",
+        "required": [
+          "imageUrl"
+        ],
+        "properties": {
+          "breed": {
+            "$ref": "#/components/schemas/Breed"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,6 @@
-export default `
+import gql from "graphql-tag";
+
+export default gql`
   type Dog {
     breed: Breed
     imageUrl: String!
@@ -6,12 +8,17 @@ export default `
 
   type Breed {
     name: String!
+    howManyDogs: String!
     dogs(limit: Int): [Dog!]
   }
 
-  extend type Query {
+  type Query {
     breed(breed: String!): Breed
     breeds(limit: Int): [Breed!]
     dogs(breed: String!, limit: Int): [Dog!]
+  }
+
+  schema {
+    query: Query
   }
 `;

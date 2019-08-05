@@ -4,8 +4,6 @@
  * Otherwise type generation will fail when the previous types are incorrect.
  */
 
-import baseTypeDefs from "./base-types";
-import catTypeDefs from "./cat/type.schema";
 import dogTypeDefs from "./dog/type.schema";
 
-export default [baseTypeDefs, catTypeDefs, dogTypeDefs];
+export default [dogTypeDefs];

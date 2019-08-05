@@ -5,6 +5,7 @@
     "target": "ESNext",
     "lib": ["esnext"],
     "noImplicitAny": true,
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",

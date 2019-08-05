@@ -6,10 +6,6 @@ export type Maybe<T> = T | null;
 // ====================================================
 
 export interface Query {
-  _empty?: Maybe<string>;
-
-  cats?: Maybe<Cat[]>;
-
   breed?: Maybe<Breed>;
 
   breeds?: Maybe<Breed[]>;
@@ -17,12 +13,10 @@ export interface Query {
   dogs?: Maybe<Dog[]>;
 }
 
-export interface Cat {
-  imageUrl: string;
-}
-
 export interface Breed {
   name: string;
+
+  howManyDogs: string;
 
   dogs?: Maybe<Dog[]>;
 }
@@ -31,10 +25,6 @@ export interface Dog {
   breed?: Maybe<Breed>;
 
   imageUrl: string;
-}
-
-export interface Mutation {
-  _empty?: Maybe<string>;
 }
 
 // ====================================================
@@ -113,10 +103,6 @@ export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
 
 export namespace QueryResolvers {
   export interface Resolvers<Context = IContext, TypeParent = {}> {
-    _empty?: _EmptyResolver<Maybe<string>, TypeParent, Context>;
-
-    cats?: CatsResolver<Maybe<Cat[]>, TypeParent, Context>;
-
     breed?: BreedResolver<Maybe<Breed>, TypeParent, Context>;
 
     breeds?: BreedsResolver<Maybe<Breed[]>, TypeParent, Context>;
@@ -124,16 +110,6 @@ export namespace QueryResolvers {
     dogs?: DogsResolver<Maybe<IDog[]>, TypeParent, Context>;
   }
 
-  export type _EmptyResolver<
-    R = Maybe<string>,
-    Parent = {},
-    Context = IContext
-  > = Resolver<R, Parent, Context>;
-  export type CatsResolver<
-    R = Maybe<Cat[]>,
-    Parent = {},
-    Context = IContext
-  > = Resolver<R, Parent, Context>;
   export type BreedResolver<
     R = Maybe<Breed>,
     Parent = {},
@@ -164,26 +140,21 @@ export namespace QueryResolvers {
   }
 }
 
-export namespace CatResolvers {
-  export interface Resolvers<Context = IContext, TypeParent = Cat> {
-    imageUrl?: ImageUrlResolver<string, TypeParent, Context>;
-  }
-
-  export type ImageUrlResolver<
-    R = string,
-    Parent = Cat,
-    Context = IContext
-  > = Resolver<R, Parent, Context>;
-}
-
 export namespace BreedResolvers {
   export interface Resolvers<Context = IContext, TypeParent = Breed> {
     name?: NameResolver<string, TypeParent, Context>;
+
+    howManyDogs?: HowManyDogsResolver<string, TypeParent, Context>;
 
     dogs?: DogsResolver<Maybe<IDog[]>, TypeParent, Context>;
   }
 
   export type NameResolver<
+    R = string,
+    Parent = Breed,
+    Context = IContext
+  > = Resolver<R, Parent, Context>;
+  export type HowManyDogsResolver<
     R = string,
     Parent = Breed,
     Context = IContext
@@ -213,18 +184,6 @@ export namespace DogResolvers {
   export type ImageUrlResolver<
     R = string,
     Parent = IDog,
-    Context = IContext
-  > = Resolver<R, Parent, Context>;
-}
-
-export namespace MutationResolvers {
-  export interface Resolvers<Context = IContext, TypeParent = {}> {
-    _empty?: _EmptyResolver<Maybe<string>, TypeParent, Context>;
-  }
-
-  export type _EmptyResolver<
-    R = Maybe<string>,
-    Parent = {},
     Context = IContext
   > = Resolver<R, Parent, Context>;
 }
@@ -264,10 +223,8 @@ export interface DeprecatedDirectiveArgs {
 
 export interface IResolvers<Context = IContext> {
   Query?: QueryResolvers.Resolvers<Context>;
-  Cat?: CatResolvers.Resolvers<Context>;
   Breed?: BreedResolvers.Resolvers<Context>;
   Dog?: DogResolvers.Resolvers<Context>;
-  Mutation?: MutationResolvers.Resolvers<Context>;
 }
 
 export interface IDirectiveResolvers<Result> {

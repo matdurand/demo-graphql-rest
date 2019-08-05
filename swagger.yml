@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+    title: 'Example API'
+    version: 3.0.0
+paths:
+    /api/empty: {get: {operationId: emptyQuery, parameters: [], requestBody: null, responses: {'200': {content: {application/json: {schema: {type: string}}}}}}, post: {operationId: emptyMutation, parameters: [], requestBody: {content: {application/json: {schema: {type: object, required: [], properties: {}}}}}, responses: {'200': {content: {application/json: {schema: {type: string}}}}}}}
+    /api/cats: {get: {operationId: catsQuery, parameters: [], requestBody: null, responses: {'200': {content: {application/json: {schema: {type: array, items: {$ref: '#/components/schemas/Cat'}}}}}}}}
+    /api/breed: {get: {operationId: breedQuery, parameters: [{in: query, name: breed, required: true, schema: {type: string}}, {in: query, name: breedDogsLimit, required: false, schema: {type: integer, format: int32}}], requestBody: null, responses: {'200': {content: {application/json: {schema: {$ref: '#/components/schemas/Breed'}}}}}}}
+    /api/breeds: {get: {operationId: breedsQuery, parameters: [{in: query, name: limit, required: false, schema: {type: integer, format: int32}}, {in: query, name: breedsDogsLimit, required: false, schema: {type: integer, format: int32}}], requestBody: null, responses: {'200': {content: {application/json: {schema: {type: array, items: {$ref: '#/components/schemas/Breed'}}}}}}}}
+    /api/dogs: {get: {operationId: dogsQuery, parameters: [{in: query, name: breed, required: true, schema: {type: string}}, {in: query, name: limit, required: false, schema: {type: integer, format: int32}}], requestBody: null, responses: {'200': {content: {application/json: {schema: {type: array, items: {$ref: '#/components/schemas/Dog'}}}}}}}}
+components:
+    schemas: {Query: {type: object, required: [], properties: {_empty: {type: string}, cats: {type: array, items: {$ref: '#/components/schemas/Cat'}}, breed: {$ref: '#/components/schemas/Breed'}, breeds: {type: array, items: {$ref: '#/components/schemas/Breed'}}, dogs: {type: array, items: {$ref: '#/components/schemas/Dog'}}}}, Cat: {type: object, required: [imageUrl], properties: {imageUrl: {type: string}}}, Breed: {type: object, required: [name, howManyDogs], properties: {name: {type: string}, howManyDogs: {type: string}, dogs: {type: array, items: {$ref: '#/components/schemas/Dog'}}}}, Dog: {type: object, required: [imageUrl], properties: {breed: {$ref: '#/components/schemas/Breed'}, imageUrl: {type: string}}}, Mutation: {type: object, required: [], properties: {_empty: {type: string}}}}
