@@ -39,7 +39,7 @@
     "graphql": "^14.1.1",
     "graphql-import": "^0.7.1",
     "merge-graphql-schemas": "^1.5.8",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "sofa-api": "^0.4.0",
     "swagger-ui-express": "^4.0.7",
     "ts-node": "^8.0.2",
